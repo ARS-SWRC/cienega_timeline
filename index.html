@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Timeline of Cienega Creek Rangeland Events</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="The Cienega Watershed Timeline traces the Cienega Watershed history through interactive features that allow you to explore specific events and periods of time for this important watershed in Southeastern Arizona. Searchable categories include local history and prehistory, fauna, flora, land uses, land forms, policies and legislation, climate and weather, and water along with people and cultures that have contributed to the watershed history.">
+    <meta name="author" content="">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="icon" type="image/x-icon" href="img/cienega_timeline.ico">
+    <script src="js/modernizr.custom.js?v=2.5" type="text/javascript" charset="utf-8"></script>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.css?v=2.5" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/grayscale.css?v=2.5" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Rosario:400,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'> 
+
+    <!-- ADDED FROM THE TIMEGLIDER APP -->
+    <script type="text/javascript" src="charts/dygraphs-master/dygraph-dev.js"></script>
+
+    <!-- Framework CSS --> 
+    <link rel="stylesheet" href="css/jquery-ui-1.8.5.custom.css" type="text/css" media="screen" title="no title"charset="utf-8">
+    <link rel="stylesheet" href="timeglider/Timeglider.css?v=2.5" type="text/css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="timeglider/timeglider.datepicker.css" type="text/css" media="screen" charset="utf-8">
+    <link rel="stylesheet" href="css/style.css?v=2.5" type="text/css" media="screen" title="no title" charset="utf-8">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+
+    <style>
+        #keywords_modal{
+            z-index: 999999999901 !important;
+            color:black;
+        }
+        .jquery-modal{
+            z-index: 999999999900 !important;
+        }
+        .modal{
+            max-width: 900px;
+            height: 800px;
+            overflow: scroll;
+        }
+        .modal a.close-modal{
+            top:0px;
+            right:0px;
+        }
+    </style>
+    <!--                              -->
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand page-scroll" href="#page-top">
+                    <i class="glyphicon glyphicon-grain"></i>  <span class="light">CIENEGA TIMELINE </span> PROJECT
+                </a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+                <ul class="nav navbar-nav">
+                    <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#about">About</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#maps">Maps</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#user_instructions">User Instructions</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Intro Header -->
+    <header class="intro">
+        <div class="intro-body">
+            <div class="container">
+
+
+                <div class="row">
+                    <div class="col-md-12"> <!-- col-md-offset-2-->
+                        <div id='timeline_container' style="margin-top:100px;"></div>
+
+                        <!-- TAGS SECTION WILL GO HERE 
+                        <div id='placement'></div>
+                        <div class='controls group'>
+                            <h4>Tags:</h4>
+                            <ul class='tags-list group' id='tags'></ul>
+                        </div> -->
+
+                        <p onclick="toggleClimate()" style="color:#fff;text-align:center;cursor:pointer;"><span id="toggle_climate_label">Hide Climate Data</span></p>
+                        <div class="graph_containers" id="climate_container">
+                            <p style="text-align:center;color:#605B53;margin-bottom: 0px;font-size: 15px;">NOTE: Climate events from 1895 to 2016</p>
+                            <div id='graph_spei_container' style="width:33%; height:200px;float:left;"></div>
+                            <div id='graph_ppt_container' style="width:33%; height:200px;float:left;"></div>
+                            <div id='graph_tmin_tmax_container' style="width:33%; height:200px;float:left;"></div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-5" style="width: 40%;"> <!-- col-md-offset-2-->
+                        <div class="graph_containers_for_raingauges" id="climate_container2" style="padding:0px 20px 0px 20px;">
+                            <p style="text-align:center;color:#1a1817;margin-bottom: 0px;font-size: 17px;">Map of Schorr and Bear Paw Rain Gauges</p>
+                            <div style="height:480px; width:100%; display:inline-block; overflow:hidden;">
+                                <iframe src="https://www.google.com/maps/d/embed?mid=1MguPLgw_odiN9Ezduh98MR3OsVFFhVo-&ehbc=2E312F" width="100%" height="530" frameborder="0" style="position:relative; top:-55px; border:none;"></iframe>
+                            </div>
+                            
+                        </div>
+
+                    </div>
+                    <div class="col-md-6" style="width: 55%;"> <!-- col-md-offset-2-->
+                        <div class="graph_containers_for_raingauges" id="climate_container2" style="margin: 40px 10px 0px 10px;padding-right:20px;">
+                            <p style="text-align:center;color:#1a1817;margin-bottom: 0px;font-size: 17px;">Schorr Rain Gauge Precipitation Data </p>
+                            <div id='graph_schorr_container' style="width:100%; height:228px;float:left;"></div>
+                            <p style="text-align:center;color:#1a1817;margin-bottom: 0px;font-size: 17px;">Bear Paw Rain Gauge Precipitation Data </p>
+                            <div id='graph_bearpaw_container' style="width:100%; height:230px;float:left;"></div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </header>
+
+
+<!-- Categories Section -->
+    <section id="categories" class="container content-section" style="margin-top:-180px">
+        <div class="row" style="margin-left:10%"> 
+            <div class="col-md-5"> 
+                <div class="thumbnail"> 
+                    <img src="images/descriptions/climate.png" style="height: 100px; width: 100%; display: block;"> 
+                    <div class="caption"> <h3 style="width:100%;text-align: center;">Climate/Weather Category</h3> 
+                    <div class="category_description_container">
+                        <p>The Cienega Watershed is located in Southeastern Arizona where the climate is characterized by a bi-modal seasonal distribution of precipitation, with summer originating from the North American Monsoon, winter originating from cyclonic storms tracking east, and distinct dry conditions between each season. Climatic variability is high and drought is common.</p>
+                        <p>The <b>Climate/Weather</b> category covers records on precipitation, drought, flood, storms, and temperature; information may include event duration, severity, and impacts on livestock. We also added long-term data on precipitation, temperature, and the standardized precipitation and evapotranspiration index (SPEI, a drought index, with zero being average and negative indicating dry). For example, you will find ample entries on the severe drought that occurred around 1900, along with a distinct SPEI valley resulting from years of sparse rainfall. The extensive late 20th-early 21st-Century drought is due to a combination of warming temperatures and precipitation deficits</p>
+                        <p><b>Sub-categories (Tags):</b> Change, Droughts, Floods, Patterns, Precipitation, Storms.</p>
+                    </div> 
+                    <!--<p style="width:100%;text-align: center;"><a href="#" class="btn btn-default" role="button">Open Category</a></p> -->
+                    </div>
+                </div> 
+            </div> 
+
+            <div class="col-md-5"> 
+                <div class="thumbnail"> 
+                    <img src="images/descriptions/fauna.png" style="height: 100px; width: 100%; display: block;"> 
+                    <div class="caption"> <h3 style="width:100%;text-align: center;">Fauna Category</h3> 
+                    <div class="category_description_container">
+                        <p>The <b>Fauna</b> category includes records that refer to local fish and wildlife species and their habitats. Most records for wildlife come from the historical period. Pre-historical records are rare, and do not constitute absolute records. Similarly, records of animal sightings from long ago are not always absolute. An example is the beaver: many assume it occurred in the Santa Cruz River basin, but there are no physical specimens of beaver, including in excavations of prehistoric sites.</p>
+                        <p>The area surrounding Cienega Creek is well known for diversity of species and vegetation communities. Cienega Creek itself is a focal point for the area. It is unique because no non-native fish have invaded and the creek and environs harbor three endangered fish, an endangered snake, two endangered birds, and one aquatic plant. There are two rare and decreasing habitat types in the area: desert grasslands and cienegas (marshes).</p>
+                        <p><b>Sub-categories (Tags):</b> Species, ESA status (Endangered Species Act; includes both endangered and threatened species), Introduction of a species, Loss of a wildlife species or its habitat, Non-native species, and Wildlife studies</p>
+                    </div> 
+                    <!--<p style="width:100%;text-align: center;"><a href="#" class="btn btn-default" role="button">Open Category</a></p> -->
+                    </div>
+                </div> 
+            </div> 
+        </div>
+
+        <div class="row" style="margin-left:10%"> 
+            <div class="col-md-5"> 
+                <div class="thumbnail"> 
+                    <img src="images/descriptions/history.png" style="height: 100px; width: 100%; display: block;"> 
+                    <div class="caption"> <h3 style="width:100%;text-align: center;">History Category</h3> 
+                    <div class="category_description_container">
+                        <p>The <b>History</b> category includes historical events that occurred in or affected the Cienega Watershed. Events listed record the history of institutions, municipalities, organizations, or individuals, and include the establishment and development of ranches like the Empire and Posta Quemada, and of municipalities like Vail, AZ. Significant local, state, national, or international historic events such as the arrival of the Southern Pacific Railroad, Arizona statehood, the Gadsden Purchase are also recorded. The category does not include events during prehistoric eras.</p>
+                        <p><b>Sub-categories (Tags):</b> Arizona, Bureau of Land Management, Cienega Watershed Partnership, Colossal Cave Mountain Park, Empire Ranch, Inventions, Kentucky Camp, Mexico/Spanish, Military, Research Ranch, Sonoita Valley, U.S. Forest Service, United States. </p>
+                    </div> 
+                    <!--<p style="width:100%;text-align: center;"><a href="#" class="btn btn-default" role="button">Open Category</a></p> -->
+                    </div>
+                </div> 
+            </div> 
+            <div class="col-md-5"> 
+                <div class="thumbnail"> 
+                    <img src="images/descriptions/land_forms.png" style="height: 100px; width: 100%; display: block;"> 
+                    <div class="caption"> <h3 style="width:100%;text-align: center;">Land Forms and Processes Category</h3> 
+                    <div class="category_description_container">
+                        <p>The <b>Land Forms and Processes</b> category addresses a variety of forms, features, and events in the natural landscape, along with the imagery we use to understand these processes. The basic geology, soils types, and landscape features are still being systematically mapped but, starting in 1936, aerial imagery has been applied to aid in understanding the results of large-scale events. Some events are famous, like the 1887 series of earthquakes in the region (see also the History category). Fires are a common occurrence on the landscape and include both natural fires and human-caused fires: accidental, deliberately set, and prescribed. Some landscape features are tied to periods of downcutting and erosion in the past; now erosion is a concern as climatic variables change, and in the face of increasing human impact on the watershed resources. Creeks are also covered under Water, and droughts and floods are listed under Climate/Weather.</p>
+                        <p><b>Sub-categories (Tags):</b> Aerial Imagery, Caves, Creeks, Earthquakes, Erosion, Fire, Geology, Other Natural, Soils, Paleontology. </p>
+                    </div> 
+                    <!--<p style="width:100%;text-align: center;"><a href="#" class="btn btn-default" role="button">Open Category</a></p> -->
+                    </div>
+                </div> 
+            </div> 
+        </div>
+
+        <div class="row" style="margin-left:10%"> 
+            <div class="col-md-5"> 
+                <div class="thumbnail"> 
+                    <img src="images/descriptions/land_use.png" style="height: 100px; width: 100%; display: block;"> 
+                    <div class="caption"> <h3 style="width:100%;text-align: center;">Land Use Category</h3> 
+                    <div class="category_description_container">
+                        <p>The <b>Land Use</b> category includes a variety of actions taken and activities instigated by people on the landscape of the Cienega Watershed. Surveyors came through marking boundaries and recording early observations. Homesteaders and miners made claims as they assessed different sites in the valley for important natural resources such as soil, vegetation, and minerals. Ranchers, like the Vail and Boice families, bought land parcels to control the grasslands for their cattle and sheep more effectively. Most were looking to build homes and to succeed economically on their land. Transportation was a key factor in the development of the valley. Early roads were constructed for shipping freight and moving stagecoaches. Later the railroads dominated all other forms of transportation.</p>
+                        <p>During the modern era, the Cienega Valley became a popular site for the cowboy and western movie industry. Large-scale development by mining corporations and residential developers has threatened this fragile landscape. Today university scientists, non-profit organizations, concerned citizens, and residents work to preserve and restore the landscape to a healthier state.</p>
+                        <p>This category does not include activities specific to water; neither does it include actions and activities during prehistoric eras.</p>
+                        <p><b>Sub-categories (Tags):</b> Development, Economics (grazing, mining, farming), Entertainment, Land Status, Planning, Recreation, Restoration, Transportation. This category does not include activities specific to water; neither does it include actions and activities during prehistoric eras.</p>
+                    </div> 
+                    <!--<p style="width:100%;text-align: center;"><a href="#" class="btn btn-default" role="button">Open Category</a></p> -->
+                    </div>
+                </div> 
+            </div> 
+            <div class="col-md-5"> 
+                <div class="thumbnail"> 
+                    <img src="images/descriptions/people.png" style="height: 100px; width: 100%; display: block;"> 
+                    <div class="caption"> <h3 style="width:100%;text-align: center;">People Category</h3> 
+                    <div class="category_description_container">
+                        <p>The <b>People</b> category includes individuals, families, organizations, and groups tied to ethnicity, language or other affiliations known from historic records and other documentation. Allied closely with the History category, events in this category provide the contributions of a wide range of individuals from explorers and military leaders to ranchers, miners, land managers, and conservationists. Families associated with ranch developments and mining activities include the Vails, Sanfords, Hummels, Boices, and Donaldsons. The presence of Native American groups like the Apache, Sobaipuri, Pima, Papago, Tohono O’odham, and neighbors are noted in the watershed and neighboring areas. Eventually organizations were formed, such as rodeo associations, local citizen groups like the Sonoita Valley Planning Partnership, and a variety of non-profit groups like the National Audubon Appleton-Whittell Research Ranch, Empire Ranch Foundation, and the Cienega Watershed Partnership. Education and youth groups in the watershed include volunteer activities and more formal programs like Wild About the Grasslands! and Youth Engaged Stewardship (YES!). </p> 
+                        <p><b>Sub-categories (Tags):</b> Anglo or European, Families, Individuals, Mexican, Native Americans, Organizations, Other Ethnic or special groups, Spanish, Youth. </p>
+                    </div> 
+                    <!--<p style="width:100%;text-align: center;"><a href="#" class="btn btn-default" role="button">Open Category</a></p> -->
+                    </div>
+                </div> 
+            </div> 
+        </div>
+
+        <div class="row" style="margin-left:10%"> 
+            <div class="col-md-5"> 
+                <div class="thumbnail"> 
+                    <img src="images/descriptions/flora.png" style="height: 100px; width: 100%; display: block;"> 
+                    <div class="caption"> <h3 style="width:100%;text-align: center;">Flora Category</h3> 
+                    <div class="category_description_container">
+                        <p>The <b>Flora</b> category includes information on vegetation communities and habitat types as well as plant species. For example, you’ll find observations about “open grasslands” in the 1800s or the change from woodlands to grasslands across the valley as the last ice age ended (Vegetation Communities sub-category). You’ll also find observations of a native plant like Huachuca water umbel being put on the endangered species list (ESA Status sub-category), or an exotic plant like Lehmann lovegrass being introduced or spreading (Non-native sub-category).</p>
+                        <p>The Cienega Watershed’s basic vegetation patterns feature a broad grassland valley with a forested stream running northwards through the center. There are patches of marsh called “cienegas” in and near the stream, and expanses of both sacaton grasslands and mesquite bosques in the floodplain. The valley is surrounded by forested mountains at upper elevations, and gives way to desert at low elevations. </p>
+                        <p>Overlap between this and other timeline categories is common. Flora events may refer to vegetation conditions, e.g. in response to Climate/Weather events like droughts, or Land Forms and Processes events like fires. Many Flora observations relate to Fauna observations, e.g. as changes in habitats affect animal populations, or to Water observations as changes in stream flow affect river forests and vice-versa.</p>
+                        <p><b>Sub-categories (Tags):</b> ESA status (Endangered Species Act; includes both endangered and threatened species), Non-native Species, Vegetation Communities, and Studies. </p>                    
+                    </div> 
+                    <!--<p style="width:100%;text-align: center;"><a href="#" class="btn btn-default" role="button">Open Category</a></p> -->
+                    </div>
+                </div> 
+            </div> 
+            <div class="col-md-5"> 
+                <div class="thumbnail"> 
+                    <img src="images/descriptions/prehistory.png" style="height: 100px; width: 100%; display: block;"> 
+                    <div class="caption"> <h3 style="width:100%;text-align: center;">Prehistory Category</h3> 
+                    <div class="category_description_container">
+                        <p><b>Prehistory</b> provides two time spans: paleontological eras beginning 145 million years ago; and the last 10,000 years before the present, when people began living in the watershed, up to AD 1500 (when historical records first become available). Specific Native American communities may be found under the timeline categories of History or People. </p>
+                        <p>Investigations listed in the timeline include organized surveys and excavations and informal discoveries that cover paleontology localities and prehistoric sites, as well as investigations at historic mining and ranching locations like Rosemont. No Paleo-Indian sites are known in the watershed although mammoth bones are found. Archaic sites represent a long span of over 7,000 years when the settlers were hunting and gathering for their subsistence. Late Archaic agricultural sites occur in well-watered areas. Later in time, Hohokam village sites were sometimes occupied for years. Hohokam sites have produced large amounts of pottery, bones, tools, architecture, and evidence of corn-based agriculture and regional trade.</p>
+                        <p><b>Sub-categories (Tags):</b> Archaeological sites, and Studies; and the time divisions that conveniently divide human settlement in the watershed: Archaic, Classic/Hohokam, Early Ceramic, Late Archaic, Paleo-Indian, and Protohistoric. Paleontology is found under the Land Forms category. </p>
+                    </div> 
+                    <!--<p style="width:100%;text-align: center;"><a href="#" class="btn btn-default" role="button">Open Category</a></p> -->
+                    </div>
+                </div> 
+            </div> 
+
+        </div>
+
+        <div class="row" style="margin-left:10%"> 
+            <div class="col-md-5"> 
+                <div class="thumbnail"> 
+                    <img src="images/descriptions/policy.png" style="height: 100px; width: 100%; display: block;"> 
+                    <div class="caption"> <h3 style="width:100%;text-align: center;">Legislation/Policies Category</h3> 
+                    <div class="category_description_container">
+                        <p>The <b>Legislation/Policies</b> category includes significant legislation (i.e. laws) or policies (i.e. a course or principle of action) that influenced events in the history of the Cienega Watershed. For example, the 1862 Homestead Act encouraged settlement of the Watershed, and the Endangered Species Act of 1973 regulates the conservation of species that are endangered or threatened, and the conservation of the ecosystems on which they depend. In instances where a legislative act or policy created governmental entities (e.g. the Department of Agriculture or the Coronado National Forest), the timeline entry describes the establishment of the entity rather than the legislation/policy itself.</p>
+                        <p><b>Sub-categories (Tags):</b>County, Federal, State, Other--identify the types of entities that issued the Legislation/Policies. </p>
+                    </div> 
+                    <!--<p style="width:100%;text-align: center;"><a href="#" class="btn btn-default" role="button">Open Category</a></p> -->
+                    </div>
+                </div> 
+            </div> 
+            <div class="col-md-5"> 
+                <div class="thumbnail"> 
+                    <img src="images/descriptions/water.png" style="height: 100px; width: 100%; display: block;"> 
+                    <div class="caption"> <h3 style="width:100%;text-align: center;">Water Category</h3> 
+                    <div class="category_description_container">
+                        <p>The <b>Water</b> category includes both natural water sources like springs and cienegas (marshes), and water uses ranging from water rights to wells. The Cienega Creek runs through the Cienega Watershed like a ribbon of green vegetation with water flowing in some areas permanently. Springs and cienegas exist in specific locations depending on amount of precipitation and groundwater paths. Both groundwater and surface water flows are critical to maintaining watershed natural resources and supporting human activities. Studies provide annual wet/dry counts and isotopic profiles of water in the creeks, springs, cienegas, and wells. Inventories of springs today show that these were in use for hundreds of years. As agriculture developed and later ranching and mining activities commenced, water use created significant features on the landscape. Wells increasingly dot the landscape as new residences and enterprises like wineries increase.</p>
+                        <p><b>Sub-categories (Tags):</b> Cienega Creek, Groundwater, Springs, Surface, Water developments (wells, tanks), Water rights, Cienegas, Studies.</p>
+                    </div> 
+                    <!--<p style="width:100%;text-align: center;"><a href="#" class="btn btn-default" role="button">Open Category</a></p> -->
+                    </div>
+                </div> 
+            </div> 
+
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="container content-section text-center">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <h2>About the Timeline Project</h2>
+                <p style="text-align:left;">The Cienega Watershed Timeline traces the Cienega Watershed history through interactive features that allow you to explore specific events and periods of time for this important watershed in Southeastern Arizona. The Timeline includes over 870 events, dating from 145 million years to 2023. Each event has been assigned a significance rating and a searchable category. Categories include local history and prehistory, fauna, flora, land uses, land forms, policies and legislation, climate and weather, and water along with people and cultures that have contributed to the watershed history. At the bottom of the timeline for those periods in which climate data is available (1896 to 2016), you will find climate information displayed for each year that you select.</p>
+                <p style="text-align:left;">The Project began in 2012 when a group of 30 individuals offered their experiences and knowledge through a shared history exercise (available on YouTube here: https://goo.gl/2AjYwz). The original shared history goals were to identify the recent work and attempts to sustain the watershed with the need to establish trends and changes that can frame our current understanding in order to manage watershed lands and to resolve issues.</p>
+                <p style="text-align:left;">
+                    In 2013, Agricultural Research Services in Tucson (ARS) offered expertise and hosting to develop an interactive timeline. ARS remains a vital partner. The Project is now managed by a Work Group under the umbrella of the Cienega Watershed Partnership (www.cienega.org). Work Group members represent or are affiliated with: ARS, the Cienega Watershed Partnership, The Nature Conservancy, Vail Preservation Society, Colossal Cave Mountain Park, US Fish and Wildlife Service, University of Arizona, the Empire Ranch Foundation and independent researchers.</p>
+                <p style="text-align:left;">The timeline is a work in progress and will change as new information or participating members add events.  Entries may be researched using categories, tags or key words.  Unless common knowledge, each entry has been verified and sourced by the Project Work Group members.  References include books, maps, websites and other forms of communication, providing a start for anyone interested in Cienega Watershed history.  As the Project proceeds, the Work Group will add bibliographies, maps and images to this site. </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Maps Section -->
+    <section id="maps" class="content-section text-center">
+        <div class="download-section">
+            <div class="container">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <h2 style="color:#2B2824;margin-top: 30px;">Cienega Watershed Boundaries and Fires Perimeters (1928 to 2018)</h2>
+                    <iframe src="https://azgeo.maps.arcgis.com/apps/webappviewer/index.html?id=eba3eb4a507f46aba95ce6b993b6d633" height="800" width="100%" frameBorder="0"></iframe>
+                    <!--<img src="images/maps/Cienega_Fires.gif" style="width: 950px;" />-->
+
+                    <br/>
+                    <br/>
+                    <h2 style="color:#2B2824;">Cienega Watershed Maps</h2>
+                    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                        <!-- Indicators -->
+                        <ol class="carousel-indicators">
+                          <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                          <li data-target="#myCarousel" data-slide-to="1"></li>
+                          <li data-target="#myCarousel" data-slide-to="2"></li>
+                          <li data-target="#myCarousel" data-slide-to="3"></li>
+                          <li data-target="#myCarousel" data-slide-to="4"></li>
+                        </ol>
+
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner" role="listbox">
+
+                          <div class="item active">
+                            <img src="images/maps/cienega_map.jpg" alt="Cienega Map">
+                            <div class="carousel-caption">
+                              <h3>Cienega Map</h3>
+                              <p>Map of the Cienega Watershed: <a href="images/maps/cienega_map.jpg" target="_blank">Download full resolution map</a></p>
+                            </div>
+                          </div>
+
+                          <div class="item">
+                            <img src="images/maps/Roskruge_map.jpg" alt="Roskruge Map">
+                            <div class="carousel-caption">
+                              <h3>Pima County Map</h3>
+                              <p>Official map of Pima County, Arizona. <a href="https://www.loc.gov/resource/g4333p.la000006/" target="_blank">Download full resolution map</a></p>
+                            </div>
+                          </div>
+
+                          <div class="item">
+                            <img src="images/maps/ccnp-watershed-map.jpg" alt="Cienega Creek Watershed Boundary">
+                            <div class="carousel-caption">
+                              <h3>Cienega Creek Watershed Boundary Map</h3>
+                              <p>Cienega Creek Watershed Boundary Map: <a href="images/maps/ccnp-watershed-map.pdf" target="_blank">Download full resolution map</a></p>
+                            </div>
+                          </div>
+
+
+                           <div class="item">
+                            <img src="images/maps/Military_Posts_Map_1800s.jpg" alt="Military Posts Map (1800s)">
+                            <div class="carousel-caption">
+                              <h3>Military Posts Map (1800s)</h3>
+                              <p>Military Posts Map (1800s): <a href="images/maps/Military_Posts_Map_1800s.jpg" target="_blank">Download full resolution map</a></p>
+                            </div>
+                          </div>
+
+                           <div class="item">
+                            <img src="images/maps/ab_stock_valley_ranches_map1885_small.jpg" alt="Ranches in Stock Valley, Pima County Arizona">
+                            <div class="carousel-caption">
+                              <h3>Ranches in Stock Valley, Pima County Arizona</h3>
+                              <p>Ranches in Stock Valley: <a href="images/maps/ab_stock_valley_ranches_map1885.jpg" target="_blank">Download full resolution map</a></p>
+                            </div>
+                          </div>
+                      
+                        </div>
+
+                        <!-- Left and right controls -->
+                        <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                          <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                          <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                          <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                          <span class="sr-only">Next</span>
+                        </a>
+                      </div>
+
+ 
+                      <br/>
+                      <br/>
+                    <h2 style="color:#2B2824;">Cienega Watershed Ag Fields Imagery</h2>
+                        <div id="myCarousel2" class="carousel slide" data-ride="carousel">
+                        
+                                <ol class="carousel-indicators">
+                                <li data-target="#myCarousel2" data-slide-to="0" class="active"></li>
+                                <li data-target="#myCarousel2" data-slide-to="1"></li>
+                                <li data-target="#myCarousel2" data-slide-to="2"></li>
+                                <li data-target="#myCarousel2" data-slide-to="3"></li>
+                                </ol>
+                            
+                                <div class="carousel-inner" role="listbox">
+
+                                <div class="item active">
+
+                                    <img src="images/imager_through_time/LCNCA Imagery_AgFields1936_b.png" alt="Cienega Map">
+                                    <div class="carousel-caption">
+                                    <h3>Ag Fields 1936</h3>
+                                    <p>LCNCA Imagery_AgFields1936_b: <a href="images/imager_through_time/LCNCA Imagery_AgFields1936_b.pdf" target="_blank">Download full resolution map</a></p>
+                                    </div>
+                                </div>
+
+                                <div class="item">
+                                    <img src="images/imager_through_time/LCNCA Imagery_AgFields1956.png" alt="Roskruge Map">
+                                    <div class="carousel-caption">
+                                    <h3>Ag Fields 1956</h3>
+                                    <p>LCNCA Imagery_AgFields1956 <a href="images/imager_through_time/LCNCA Imagery_AgFields1956.pdf" target="_blank">Download full resolution map</a></p>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <img src="images/imager_through_time/LCNCA Imagery_AgFields1970.png" alt="Roskruge Map">
+                                    <div class="carousel-caption">
+                                    <h3>Ag Fields 1970</h3>
+                                    <p>LCNCA Imagery_AgFields1970 <a href="images/imager_through_time/LCNCA Imagery_AgFields1970.pdf" target="_blank">Download full resolution map</a></p>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <img src="images/imager_through_time/LCNCA Imagery_AgFields1983.png" alt="Roskruge Map">
+                                    <div class="carousel-caption">
+                                    <h3>Ag Fields 1983</h3>
+                                    <p>LCNCA Imagery_AgFields1983 <a href="images/imager_through_time/LCNCA Imagery_AgFields1983.pdf" target="_blank">Download full resolution map</a></p>
+                                    </div>
+                                </div>
+                            
+                                </div>
+
+                                
+                                <a class="left carousel-control" href="#myCarousel2" role="button" data-slide="prev">
+                                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="right carousel-control" href="#myCarousel2" role="button" data-slide="next">
+                                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                                </a>
+                            </div>
+                        
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- User Instructions Section -->
+    <section id="user_instructions" class="container content-section text-center">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <h2>User Instructions</h2>
+                <p>
+                    <embed src="http://cienega.org/timeline/docs/User_Instructions/Timeline User Instructions.pdf#view=FitH&pagemode=none" width="100%" height="700" alt="pdf" pluginspage="http://www.adobe.com/products/acrobat/readstep2.html">
+                </p>
+
+            </div>
+        </div>
+    </section>
+
+    
+
+    <!-- Contact Section -->
+    <section id="contact" class="container content-section text-center">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <h2>Contact Us</h2>
+                <p>Want to know more? Contact the work group at <a href="mailto:timeline@cienega.org">timeline@cienega.org</a></p>
+                <p>To participate in the Project Work Group or to donate funds and materials to the current project, contact <a href="mailto:timeline@cienega.org">timeline@cienega.org</a>.
+
+                <ul class="list-inline banner-social-buttons">
+                    <li>
+                        <a href="http://www.cienega.org/" class="btn btn-default btn-lg"><i class="glyphicon glyphicon-grain"></i> <span class="network-name">The Cienega Watershed Partnership</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <!--<div id="map"></div>-->
+
+    <!-- Footer -->
+    <footer>
+        <div class="container text-center">
+            <p>Copyright &copy; The Cienega Watershed Partnership</p>
+        </div>
+    </footer>
+
+
+      <div id="keywords_modal" class="modal">
+        <h4>Available tags by category</h4>
+        <h5>Climate/Weather Category</h5>
+        <p><b>Sub-categories (Tags):</b> Change, Droughts, Floods, Patterns, Precipitation, Storms.</p>
+        <h5>Fauna Category</h5>
+        <p><b>Sub-categories (Tags):</b> Species, ESA status (Endangered Species Act; includes both endangered and threatened species), Introduction of a species, Loss of a wildlife species or its habitat, Non-native species, and Wildlife studies</p>
+        <h5>History Category</h5>
+        <p><b>Sub-categories (Tags):</b> Arizona, Bureau of Land Management, Cienega Watershed Partnership, Colossal Cave Mountain Park, Empire Ranch, Inventions, Kentucky Camp, Mexico/Spanish, Military, Research Ranch, Sonoita Valley, U.S. Forest Service, United States. </p>
+        <h5>Land Forms and Processes Category</h5>
+        <p><b>Sub-categories (Tags):</b> Aerial Imagery, Caves, Creeks, Earthquakes, Erosion, Fire, Geology, Other Natural, Soils. Paleontology is found under the Prehistory category. </p>
+        <h5>Land Use Category</h5>
+        <p><b>Sub-categories (Tags):</b> Development, Economics (grazing, mining, farming), Entertainment, Land Status, Planning, Recreation, Restoration, Transportation. This category does not include activities specific to water; neither does it include actions and activities during prehistoric eras.</p>
+        <h5>People Category</h5>
+        <p><b>Sub-categories (Tags):</b> Anglo or European, Families, Individuals, Mexican, Native Americans, Organizations, Other Ethnic or special groups, Spanish, Youth. </p>
+        <h5>Flora Category</h5>
+        <p><b>Sub-categories (Tags):</b> ESA status (Endangered Species Act; includes both endangered and threatened species), Non-native Species, Vegetation Communities, and Studies. </p>
+        <h5>Prehistory Category</h5>
+        <p><b>Sub-categories (Tags):</b> Archaeological sites, Paleontology, and Studies; and the time divisions that conveniently divide human settlement in the watershed: Archaic, Classic/Hohokam, Early Ceramic, Late Archaic, Paleo-Indian, and Protohistoric.</p>
+        <h5>Legislation/Policies Category</h5>
+        <p><b>Sub-categories (Tags):</b>County, Federal, State, Other--identify the types of entities that issued the Legislation/Policies. </p>
+        <h5>Water Category</h5>
+        <p><b>Sub-categories (Tags):</b> Cienega Creek, Groundwater, Springs, Surface, Water developments (wells, tanks), Water rights, Cienegas, Studies.</p>
+        <a href="#" rel="modal:close">Close</a>
+      </div>
+
+    <!-- TIMEGLIDER -->
+    <script src="js/json2.js" type="text/javascript" charset="utf-8"></script>
+
+    <script src="js/jquery-1.9.1.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/jquery-ui-1.10.3.custom.min.js" type="text/javascript" charset="utf-8"></script>
+
+    <!-- ADDED BY GERARDO  -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- Plugin JavaScript -->
+    <script src="js/jquery.easing.min.js"></script>
+    <!-- Custom Theme JavaScript -->
+    <script src="js/grayscale.js"></script>
+
+
+    <!-- TIMEGLIDER -->
+    <script src="js/underscore-min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/backbone-min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/jquery.tmpl.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/ba-debug.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/ba-tinyPubSub.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/jquery.mousewheel.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/jquery.ui.ipad.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/globalize.js" type="text/javascript" charset="utf-8"></script>  
+
+    <script src="timeglider/TG_Date.js?v=2.5" type="text/javascript" charset="utf-8"></script>
+    <script src="timeglider/TG_Org.js?v=2.5" type="text/javascript" charset="utf-8"></script>
+    <script src="timeglider/TG_Timeline.js?v=2.5" type="text/javascript" charset="utf-8"></script> 
+    <script src="timeglider/TG_TimelineView.js?v=2.5" type="text/javascript" charset="utf-8"></script>
+    <script src="timeglider/TG_Mediator.js?v=2.5" type="text/javascript" charset="utf-8"></script> 
+    <script src="timeglider/timeglider.timeline.widget.js?v=2.5" type="text/javascript"></script>
+    
+    <script src="timeglider/timeglider.datepicker.js" type="text/javascript"></script>
+
+    <!-- New, as of June 2012 -->
+    <script src="js/jquery.jscrollpane.min.js" type="text/javascript"></script>
+
+    <!-- ADDED BY GERARDO  -->
+    <script src="js/cc_charts_10212019.js?v=2.5" type='text/javascript'></script>
+    <script src="js/cc_timeline.js?v=2.5" type='text/javascript'></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-1574691-16', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,130 @@
+body {
+	font-family: 'Open Sans', sans-serif;
+	background-color: #2B2824;
+}
+
+.clearfix:after {
+	content: ".";
+	display: block;
+	clear: both;
+	visibility: hidden;
+	line-height: 0;
+	height: 0;
+}
+ 
+.clearfix {
+	display: inline-block;
+}
+ 
+html[xmlns] .clearfix {
+	display: block;
+}
+ 
+* html .clearfix {
+	height: 1%;
+}
+
+.header {
+	margin-left:30px;
+}
+
+.header p{
+	font-size:0.9em;
+}
+
+.header ol{
+	font-size:0.8em;
+}
+
+.header h2{
+	font-family: 'Rosario', sans-serif;
+	font-size:2em;
+	line-height: 0em;
+}
+
+h1 {
+	font-size:18px;
+	color:#333;
+}
+#timeline_container {
+	margin:0px 30px;
+	margin-bottom:0;
+	height:900px;
+}
+
+.timeglider-legend {
+	width:180px;
+}
+
+.tg-single-timeline-header ul, .tg-pres-header ul{
+	float:right;
+	font-weight: bold;
+}
+		
+/*   Graph Styles   */
+.graph_containers{width:98%;  background-color:#E4E0D8; float:left;margin-left: 20px; }
+.graph_containers_for_raingauges{width:98%;  background-color:#cec8bd; float:left;margin-left: 20px; margin-top: 40px;}
+
+
+.dygraph-legend{color:black;}
+
+.dygraph-label{color:#2B2824;}
+
+
+/* cateogry containers */
+.category_description_container{
+	height: 350px !important;
+    max-height: 350px !important;
+    overflow-y: scroll !important;
+}
+
+.category_description_container b{
+	font-weight: bold;
+	text-decoration: underline;
+	font-size: 19px;
+}
+
+/* map carrousel */
+#myCarousel .carousel-inner > .item > img,
+#myCarousel .carousel-inner > .item > a > img {
+  height:800px;
+  margin: auto;
+}
+#myCarousel .carousel-inner > .item .carrousel-caption{
+	color:black;
+}
+#myCarousel2 .carousel-inner > .item > img,
+#myCarousel2 .carousel-inner > .item > a > img {
+  height:800px;
+  margin: auto;
+}
+#myCarousel2 .carousel-inner > .item .carrousel-caption{
+	color:black;
+}
+
+.carousel-caption h3{
+	color:black;
+}
+.carousel-caption p{
+	color:black;
+}
+
+
+/* image overrides */
+.icon_image{
+	width:13px !important;
+	height:13px !important;
+}
+
+/* carousel overrides */
+.carousel-caption{
+	background-color: #fff;
+    margin-bottom: 40px;
+    padding-left: 0px;
+    padding-bottom: 0px;
+}
+
+/* date input override */
+#goto{
+	color:black;
+}
