@@ -24,7 +24,7 @@
 				"max_zoom":60, 
 				"timezone":"-07:00",
 				"icon_folder":"timeglider/icons/",
-				"data_source":"json/Conservation_History_Timeline_11032022.json",
+				"data_source":"json/Conservation_History_Timeline_08022024.json",
 				"show_footer":true,
 				"display_zoom_level":true,
 				"mousewheel":"zoom", // zoom | pan | none

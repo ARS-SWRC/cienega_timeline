@@ -1577,6 +1577,7 @@ background-color:#717171;
 .tg-full_modal_content {
 	margin:16px;
 }
+
 .tg-modal-video, .tg-modal_map {
 	width:100%;
 }
@@ -1594,9 +1595,9 @@ background-color:#717171;
 
 
 .tg-full_modal .dateline {
-	font-size:16px;
+	font-size:30px;
 	color:#726d62;
-	margin:8px;
+	margin: 8px 8px 8px 100px;
 	float:left;
 	max-width:50%;
 }
@@ -1611,13 +1612,20 @@ background-color:#717171;
 	width:40%;
 }
 
+.tg-full_modal_content h4{
+    margin: 8px 8px 8px 100px;
+}
+
 .tg-full_modal-body {
-	margin:12px;
+	margin:100px;
 	/*width:45%;*/
-	font-size:14px;
+	font-size:20px;
 	line-height:20px;
 	color:#2f2c28;
 	clear:left;
+}
+.tg-full_modal-body b{
+    font-size:22px;
 }
 
 .tg-full_modal-body p {

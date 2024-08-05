@@ -21,7 +21,7 @@ STEPS
 * Remove all red styled items, it was decided that these are categorized for deletion
 * Move the data (with functions) to the "CLEANUP TABLE FOR CSV to JSON" sheet
 * Update the start and end date formats to "1500-01-01 12:00:00" format
-* Copy the CSV data into https://csvjson.com/csv2json, in order to produce JSON
+* Copy the CSV data into https://www.convertcsv.com/csv-to-json.htm (seems to work better than https://csvjson.com/csv2json), in order to produce JSON
 * Make sure that all required attributes in JSON are case sensitive (lower caps)
 * Save new JSON file
 * Upload JSON file to json folder in web app
