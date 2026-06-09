@@ -1,21 +1,10 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 # Cienega Timeline Project
 This repository hosts the code for the Cienega Timeline project
+App URL: https://cienega.org/timeline/
+
 
 
 #  Updating the Historic Events Data
-=======
-#  UPDATING THE MATIX OF EVENTS
-
->>>>>>> c7f6e01 (First Cienega Timeline commit)
-=======
-# Cienega Timeline Project
-This repository hosts the code for the Cienega Timeline project
-
-
-#  Updating the Historic Events Data
->>>>>>> c20de4c (Commit all to Cienega repo)
 STEPS
 * Cleanup matrix by checking that there are no empty rows for: event title, description, start date, categories, category icon
 * Remove all red styled items, it was decided that these are categorized for deletion
